@@ -33,9 +33,7 @@ if (isset($_POST['guess'])) {
 $(document).ready(function(){
   $(".correct").show();
   $(".form").hide();
-  $('button').click(function(){
-    alert('');
-  });
+
 });
 </script>
 <?php
@@ -99,6 +97,9 @@ $(document).ready(function(){
     <p>
       I am thinking of a number between 1 and 100<br>
       Take a guess!
+      <?php
+      // echo $_SESSION['random']
+      ?>
     </p>
     <div class="toolow response">
       <h3>Too Low</h3>
@@ -107,7 +108,7 @@ $(document).ready(function(){
       <h3>Too High</h3>
     </div>
     <div class="correct response">
-      <h3>was the number!</h3>
+      <h3><?= $_SESSION['random'] ?> was the number!</h3>
       <form class="playagain" action="index.php" method="post">
         <input type="submit" value="Play Again" >
       </form>
