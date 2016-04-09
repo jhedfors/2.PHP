@@ -1,0 +1,5 @@
+ (28000/1045): Access denied for user 'ODBC'@'localhost' (using password: YES)
+
+ completed the following:
+ define('DB_HOST', 'localhost');
+ define('DB_USER', 'root');
