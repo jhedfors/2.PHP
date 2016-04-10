@@ -3,6 +3,15 @@
   require("connection.php");
   $query = "select * from quotes";
   $quotes = fetch_all($query);
+
+  //this foreach loop creates an array (i have named $sortingkey that contains the values of the keys I want sorted in the $quotes array
+  foreach ($quotes as $key => $row) {
+    $sortingkey[$key]  = $row['created_date'];
+  }
+
+  // this built-in function sorts $quotes by decending order (SORT_DESC) by they values stored in $sortingkey
+  array_multisort($sortingkey, SORT_DESC, $quotes);
+
  ?>
 
 <!DOCTYPE html>
