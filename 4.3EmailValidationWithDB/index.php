@@ -14,7 +14,7 @@ require("new-connection.php");
   <body>
     <div class="wrapper">
       <form class="form" action="process.php" method="post">
-        <label for="email">Email Address:</label><input type="text" name="email" value="">
+        <label for="email">Email Address:</label><input type="text" name="email" value="" autofocus>
         <div class="error">
           <?php
               if(isset($_SESSION['errors']['email'])) {
