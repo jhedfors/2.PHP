@@ -1,0 +1,58 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+p.tagline{
+  text-align: center;
+  padding-top: 10px;
+}
+div.main{
+  margin: 20px;
+}
+
+form{
+  width: 510px;
+  margin: 10px 0px ;
+}
+
+div.quotes{
+  width: 350px;
+  margin: 10px 0px ;
+}
+form label{
+  width: 100px;
+  display: inline-block;;
+}
+form input[type='text']{
+  width: 200px;
+  border: 1px solid black;
+  margin: 3px 0px;
+}
+
+form textarea{
+  width: 200px;
+  height: 100px;
+  border: 1px solid black;
+  vertical-align: top;
+  margin-bottom: 3px;
+}
+
+div.error{
+  display: inline-block;
+  width: 200px;
+  color: red;
+
+}
+
+form input[type='submit']{
+  margin: 10px 20px;
+}
+
+div.quotes{
+  margin-top: 20px;
+}
+
+div.quotes p{
+  margin: 10px 0px;
+}
