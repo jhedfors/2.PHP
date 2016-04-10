@@ -6,7 +6,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', 'root'); //may need to set DB_PASS as 'root'
-define('DB_DATABASE', 'people'); //make sure to set your database
+define('DB_DATABASE', 'emailvalidationwithdb'); //make sure to set your database
 
 //connect to database host
 $connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_DATABASE);
