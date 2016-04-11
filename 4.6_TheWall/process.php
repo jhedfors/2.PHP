@@ -11,10 +11,9 @@ elseif (isset($_POST['register'])) {
   register_user($_POST);
 }
 elseif (isset($_POST['post_message'])) {
-  var_dump($_POST);
-  die();
+  postMessage();
+  header("Location:index.php");
 
-  // register_user($_POST);
 }
 else{
   session_destroy();
@@ -46,8 +45,11 @@ function login_user($post){
   if(count($_SESSION['errors'])>0){
     header('Location:login.php');
   }
+
   else{
-    getPostAndComments($db_user['id']);
+
+    $_SESSION['currentUser'] = $db_user['id'];
+    getPostAndComments();
     // die();
     Header('Location:index.php');
   }
@@ -97,14 +99,25 @@ function register_user($post){
   }
 }
 
-function getPostAndComments($id){
-  $query = "select message from messages where users_id = '{$id}'";
-  $db_messages = fetch_record($query);
+function getPostAndComments(){
+  $query = "select * from messages where users_id = '{$_SESSION['currentUser']}'";
+  $_SESSION['user_messages'] = fetch_all($query);
+}
+
+function postMessage(){
+  $query = "INSERT INTO messages (message, created_on, modified_on, users_id) VALUES ('{$_POST['post_message']}', NOW(), NOW(), '{$_SESSION['currentUser']}')";
+
+  run_mysql_query($query);
+
+  getPostAndComments();
+
   //
-  // var_dump($db_messages);
+  // var_dump($_POST['post_message']);
+  //
+  //
   // die();
 
-
+  // register_user($_POST);
 }
   //------end of validation checks
 

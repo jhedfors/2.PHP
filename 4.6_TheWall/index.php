@@ -28,8 +28,28 @@ require('connection.php');
         </form>
 
         <?php
-         
-         ?>
+        $posts = $_SESSION['user_messages'];
+        //this foreach loop creates an array (i have named $sortingkey that contains the values of the keys I want sorted in the $quotes array
+        foreach ($posts as $key => $row) {
+          $sortingkey[$key]  = $row['created_on'];
+        }
+        // this built-in function sorts $quotes by decending order (SORT_DESC) by they values stored in $sortingkey
+        array_multisort($sortingkey, SORT_DESC, $posts);
+
+        foreach ($posts as $post) {
+        // echo "{$post['id']} {$post['message']}";
+        ?>
+        <div class="messages">
+          <p>
+            <?= $post['users_id'] ?> - <?= $post['created_on'] ?>
+          </p>
+          <p>
+            <?= $post['message']  ?>
+          </p>
+        </div>
+        <?php
+        }
+        ?>
 
       </div>
 
