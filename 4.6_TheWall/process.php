@@ -83,8 +83,8 @@ function register_user($post){
     if ($existing == $post['email']) {
       $_SESSION['errors']['email'] = "User already exists";
     }
-
   }
+    //------end of validation checks
   if(count($_SESSION['errors'])>0){
     header('Location:login.php');
   }
@@ -100,25 +100,20 @@ function register_user($post){
 }
 
 function getPostAndComments(){
-  $query = "select * from messages where users_id = '{$_SESSION['currentUser']}'";
+  $query = "select first_name, last_name, message, messages.created_on from messages
+  left join users
+  on users.id = messages.users_id
+  where users_id = '{$_SESSION['currentUser']}'";
   $_SESSION['user_messages'] = fetch_all($query);
 }
 
 function postMessage(){
   $query = "INSERT INTO messages (message, created_on, modified_on, users_id) VALUES ('{$_POST['post_message']}', NOW(), NOW(), '{$_SESSION['currentUser']}')";
-
   run_mysql_query($query);
 
   getPostAndComments();
 
-  //
-  // var_dump($_POST['post_message']);
-  //
-  //
-  // die();
-
-  // register_user($_POST);
 }
-  //------end of validation checks
+
 
  ?>

@@ -41,7 +41,7 @@ require('connection.php');
         ?>
         <div class="messages">
           <p>
-            <?= $post['users_id'] ?> - <?= $post['created_on'] ?>
+            <?= $post['first_name']?>  <?=$post['last_name']?> - <?= $post['created_on'] ?>
           </p>
           <p>
             <?= $post['message']  ?>
