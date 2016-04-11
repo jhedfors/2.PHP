@@ -35,14 +35,20 @@ textarea{
 }
 
 
-div.login, div.register{
-  display: inline-block;
+div.login{
   border: solid black 1px;
-  width: 350px;
-  height: 200px;
+  width: 425px;
+  height: 100px;
   margin: 10px;
   padding: 10px;
-  vertical-align: top;
+}
+
+div.register{
+  border: solid black 1px;
+  width: 425px;
+  height: 150px;
+  margin: 10px;
+  padding: 10px;
 }
 
 div.error{
@@ -51,17 +57,16 @@ div.error{
 }
 
 form label{
-  width: 125px;
+  width: 140px;
   display: inline-block;
-
 }
 
 input[type="text"], input[type="password"]{
   border: 1px solid black;
-  width: 90px;
+  width: 110px;
 }
 div.error{
-  width: 120px;
+  width: 160px;
   margin-left: 5px;
   color: red;
   padding: 5px 0px;

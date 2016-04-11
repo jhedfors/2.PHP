@@ -2,15 +2,6 @@
 session_start();
 require('connection.php');
 
-// $query = "INSERT INTO users (first_name, last_name, email, password, created_on, modified_on)
-// VALUES ('Jeff', 'Hedfors', 'jeff@hedfors.net', 'abc', NOW(), NOW())";
-$query = "SELECT * FROM users";
-
-
-
-// echo $query;
-// var_dump(fetch_all($query));
-
  ?>
 
 <!DOCTYPE html>
@@ -32,9 +23,13 @@ $query = "SELECT * FROM users";
       <div class="main">
         <p>Post a message</p>
         <form class="message_post" action="process.php" method="post">
-          <textarea name="name"></textarea>
-          <input type="submit" name="name" value="Post a message">
+          <textarea name="post_message"></textarea>
+          <input type="submit" value="Post a message">
         </form>
+
+        <?php
+         
+         ?>
 
       </div>
 
