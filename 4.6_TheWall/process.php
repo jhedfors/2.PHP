@@ -13,7 +13,10 @@ elseif (isset($_POST['register'])) {
 elseif (isset($_POST['post_message'])) {
   postMessage();
   header("Location:index.php");
-
+}
+elseif (isset($_POST['post_comment'])) {
+  postComment($_POST['current_message'],$_POST['post_comment']);
+  header("Location:index.php");
 }
 else{
   session_destroy();
@@ -41,6 +44,9 @@ function login_user($post){
       $_SESSION['errors']['email'] = "Invalid email or ";
       $_SESSION['errors']['password'] = "password";
     }
+    $db_first_name = $db_user['first_name'];
+    $db_last_name = $db_user['last_name'];
+
   }
   if(count($_SESSION['errors'])>0){
     header('Location:login.php');
@@ -49,6 +55,9 @@ function login_user($post){
   else{
 
     $_SESSION['currentUser'] = $db_user['id'];
+    $_SESSION['first_name'] = $db_user['first_name'];
+    $_SESSION['last_name'] = $db_user['last_name'];
+
     getPostAndComments();
     // die();
     Header('Location:index.php');
@@ -95,17 +104,19 @@ function register_user($post){
     $query = "INSERT INTO users (first_name, last_name, email, password, created_on, modified_on)
     VALUES ('{$post['first_name']}', '{$post['last_name']}', '{$post_esc_email}', '{$post_enc_password}', NOW(), NOW())";
     run_mysql_query($query);
+    getPostAndComments();
     header('Location:index.php');
   }
 }
 
 function getPostAndComments(){
-  $query = "select first_name, last_name, message, messages.created_on from messages
+  $query = "select messages.id as message_id, first_name, last_name, message, messages.created_on from messages
   left join users
   on users.id = messages.users_id
-  where users_id = '{$_SESSION['currentUser']}'";
+  ";
   $_SESSION['user_messages'] = fetch_all($query);
 }
+// where users_id = '{$_SESSION['currentUser']}'
 
 function postMessage(){
   $query = "INSERT INTO messages (message, created_on, modified_on, users_id) VALUES ('{$_POST['post_message']}', NOW(), NOW(), '{$_SESSION['currentUser']}')";
@@ -115,5 +126,14 @@ function postMessage(){
 
 }
 
+function postComment($message_id, $comment){
+  echo "$message_id $comment";
+  die();
+  // $query = "INSERT INTO comments (comment, created_on, modified_on, users_id) VALUES ('{$_POST['post_message']}', NOW(), NOW(), '{$_SESSION['currentUser']}')";
+  // run_mysql_query($query);
+
+  getPostAndComments();
+
+}
 
  ?>

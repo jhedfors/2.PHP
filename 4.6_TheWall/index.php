@@ -16,12 +16,12 @@ require('connection.php');
       <div class="header">
         <h2>The CodingDojo Wall</h2>
         <div class="welcome">
-          <h4>Welcome [placeholder]</h4>
+          <h4>Welcome <?= $_SESSION['first_name'] ?> <?= $_SESSION['last_name'] ?></h4>
           <a href="process.php">Logoff</a>
         </div>
       </div>
       <div class="main">
-        <p>Post a message</p>
+        <p>Post a message:</p>
         <form class="message_post" action="process.php" method="post">
           <textarea name="post_message"></textarea>
           <input type="submit" value="Post a message">
@@ -29,6 +29,7 @@ require('connection.php');
 
         <?php
         $posts = $_SESSION['user_messages'];
+
         //this foreach loop creates an array (i have named $sortingkey that contains the values of the keys I want sorted in the $quotes array
         foreach ($posts as $key => $row) {
           $sortingkey[$key]  = $row['created_on'];
@@ -37,15 +38,23 @@ require('connection.php');
         array_multisort($sortingkey, SORT_DESC, $posts);
 
         foreach ($posts as $post) {
-        // echo "{$post['id']} {$post['message']}";
+
+
         ?>
         <div class="messages">
-          <p>
+          <p class = 'post_header'>
             <?= $post['first_name']?>  <?=$post['last_name']?> - <?= $post['created_on'] ?>
           </p>
-          <p>
+          <p class = 'post_body'>
             <?= $post['message']  ?>
           </p>
+          <p class="post_label">Post a comment:</p>
+          <form class="comments" action="process.php" method="post">
+            <input type="hidden" name="current_message" value="<?= $post['message_id'] ?>">
+            <textarea name="post_comment"></textarea>
+            <input type="submit" value="Post a comment">
+          </form>
+
         </div>
         <?php
         }
