@@ -1,0 +1,29 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+form{
+  width: 500px;
+}
+label{
+  width: 170px;
+  display: inline-block;
+}
+
+input[type="text"]{
+  border: 1px solid black;
+}
+input[type="submit"]{
+  border: 1px solid black;
+  display: block;
+}
+
+.error{
+  color: red;
+
+}
+.success{
+  color: green;
+
+}
