@@ -29,6 +29,7 @@ require('connection.php');
 
         <?php
         $posts = $_SESSION['user_messages'];
+        $comments = $_SESSION['user_comments'];
 
         //this foreach loop creates an array (i have named $sortingkey that contains the values of the keys I want sorted in the $quotes array
         foreach ($posts as $key => $row) {
@@ -36,10 +37,7 @@ require('connection.php');
         }
         // this built-in function sorts $quotes by decending order (SORT_DESC) by they values stored in $sortingkey
         array_multisort($sortingkey, SORT_DESC, $posts);
-
         foreach ($posts as $post) {
-
-
         ?>
         <div class="messages">
           <p class = 'post_header'>
@@ -48,9 +46,21 @@ require('connection.php');
           <p class = 'post_body'>
             <?= $post['message']  ?>
           </p>
+          <?php
+
+          var_dump($comments);
+          die('index52');
+            foreach ($variable as $key => $value) {
+              # code...
+            }
+
+           ?>
+
+
           <p class="post_label">Post a comment:</p>
           <form class="comments" action="process.php" method="post">
             <input type="hidden" name="current_message" value="<?= $post['message_id'] ?>">
+            <input type="hidden" name="messages_users_id" value="<?= $post['messages_users_id'] ?>">
             <textarea name="post_comment"></textarea>
             <input type="submit" value="Post a comment">
           </form>

@@ -15,7 +15,7 @@ elseif (isset($_POST['post_message'])) {
   header("Location:index.php");
 }
 elseif (isset($_POST['post_comment'])) {
-  postComment($_POST['current_message'],$_POST['post_comment']);
+  postComment($_POST['current_message'],$_POST['post_comment'],$_POST['messages_users_id']);
   header("Location:index.php");
 }
 else{
@@ -59,7 +59,7 @@ function login_user($post){
     $_SESSION['last_name'] = $db_user['last_name'];
 
     getPostAndComments();
-    // die();
+
     Header('Location:index.php');
   }
 }
@@ -110,13 +110,19 @@ function register_user($post){
 }
 
 function getPostAndComments(){
-  $query = "select messages.id as message_id, first_name, last_name, message, messages.created_on from messages
-  left join users
-  on users.id = messages.users_id
+  $query = "SELECT messages.id AS message_id, first_name, last_name, message, messages.created_on, messages.users_id AS messages_users_id FROM messages
+  LEFT JOIN users
+  ON users.id = messages.users_id
   ";
   $_SESSION['user_messages'] = fetch_all($query);
+
+  $query = "SELECT comments.id AS comment_id, first_name, last_name, comment, comments.created_on, messages_users_id  FROM comments   LEFT JOIN users   ON users.id = comments.users_id";
+
+  $_SESSION['user_comments'] = fetch_all($query);
+  var_dump($_SESSION['user_comments']);
+
+
 }
-// where users_id = '{$_SESSION['currentUser']}'
 
 function postMessage(){
   $query = "INSERT INTO messages (message, created_on, modified_on, users_id) VALUES ('{$_POST['post_message']}', NOW(), NOW(), '{$_SESSION['currentUser']}')";
@@ -126,11 +132,12 @@ function postMessage(){
 
 }
 
-function postComment($message_id, $comment){
-  echo "$message_id $comment";
-  die();
-  // $query = "INSERT INTO comments (comment, created_on, modified_on, users_id) VALUES ('{$_POST['post_message']}', NOW(), NOW(), '{$_SESSION['currentUser']}')";
-  // run_mysql_query($query);
+function postComment($message_id, $comment, $messages_users_id){
+  $query = "INSERT INTO comments (comment, created_on, modifed_on, users_id, messages_id, messages_users_id) VALUES ('".$comment."', NOW(), NOW(), '".$_SESSION['currentUser']."','".$message_id."','".$messages_users_id."')";
+  //
+  // echo $query;
+  // die("proc 138");
+  run_mysql_query($query);
 
   getPostAndComments();
 
