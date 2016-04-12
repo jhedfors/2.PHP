@@ -95,3 +95,7 @@ input[type="submit"]{
 .post_label{
   margin-left: 20px;
 }
+
+div.comment{
+  margin: 20px;
+}

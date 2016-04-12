@@ -116,7 +116,7 @@ function getPostAndComments(){
   ";
   $_SESSION['user_messages'] = fetch_all($query);
 
-  $query = "SELECT comments.id AS comment_id, first_name, last_name, comment, comments.created_on, messages_users_id  FROM comments   LEFT JOIN users   ON users.id = comments.users_id";
+  $query = "SELECT comments.id AS comment_id, first_name, last_name, comment, comments.created_on, messages_users_id, messages_id  FROM comments   LEFT JOIN users   ON users.id = comments.users_id";
 
   $_SESSION['user_comments'] = fetch_all($query);
   var_dump($_SESSION['user_comments']);
@@ -134,9 +134,7 @@ function postMessage(){
 
 function postComment($message_id, $comment, $messages_users_id){
   $query = "INSERT INTO comments (comment, created_on, modifed_on, users_id, messages_id, messages_users_id) VALUES ('".$comment."', NOW(), NOW(), '".$_SESSION['currentUser']."','".$message_id."','".$messages_users_id."')";
-  //
-  // echo $query;
-  // die("proc 138");
+
   run_mysql_query($query);
 
   getPostAndComments();

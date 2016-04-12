@@ -1,7 +1,6 @@
 <?php
 session_start();
 require('connection.php');
-
  ?>
 
 <!DOCTYPE html>
@@ -37,6 +36,7 @@ require('connection.php');
         }
         // this built-in function sorts $quotes by decending order (SORT_DESC) by they values stored in $sortingkey
         array_multisort($sortingkey, SORT_DESC, $posts);
+
         foreach ($posts as $post) {
         ?>
         <div class="messages">
@@ -48,14 +48,23 @@ require('connection.php');
           </p>
           <?php
 
-          var_dump($comments);
-          die('index52');
-            foreach ($variable as $key => $value) {
-              # code...
+          // var_dump($comments);
+          // die('index52');
+            foreach ($comments as $comment) {
+              if ($comment['messages_id'] == $post['message_id']){
+                ?>
+                <div class="comments">
+                  <p class = 'post_header'>
+                    <?= $comment['first_name']?>  <?=$comment['last_name']?> - <?= $comment['created_on'] ?>
+                  </p>
+                  <p class = 'post_body'>
+                    <?= $comment['comment']  ?>
+                  </p>
+                </div>
+                <?php
+              }
             }
-
            ?>
-
 
           <p class="post_label">Post a comment:</p>
           <form class="comments" action="process.php" method="post">
